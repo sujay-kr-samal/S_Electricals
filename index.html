@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>S Electrical – Powering Homes & Businesses</title>
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --yellow: #FFD100; --dark: #0A0A0A; --charcoal: #141414;
+      --mid: #1E1E1E; --light: #F5F5F5; --muted: #888;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--dark); color: var(--light); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw; background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,209,0,0.15);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--yellow); }
+    .nav-logo span { color: var(--light); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta { background: var(--yellow); color: var(--dark); padding: 10px 22px; border-radius: 4px; font-weight: 700; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .nav-cta:hover { background: #ffe44d; transform: translateY(-1px); }
+
+    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 5vw 80px; position: relative; overflow: hidden; }
+    .hero-grid-bg { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(255,209,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,209,0,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-glow { position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(255,209,0,0.12) 0%, transparent 70%); z-index: 0; }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-badge { display: inline-block; background: rgba(255,209,0,0.12); border: 1px solid rgba(255,209,0,0.3); color: var(--yellow); font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 3px; margin-bottom: 24px; animation: fadeUp 0.6s ease both; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 10vw, 9rem); line-height: 0.95; letter-spacing: 2px; animation: fadeUp 0.7s ease 0.1s both; }
+    .hero-title .yellow { color: var(--yellow); }
+    .hero-sub { margin-top: 24px; font-size: 1.1rem; font-weight: 300; color: #aaa; max-width: 520px; line-height: 1.7; animation: fadeUp 0.7s ease 0.2s both; }
+    .hero-actions { margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.7s ease 0.3s both; }
+    .btn-primary { background: var(--yellow); color: var(--dark); padding: 15px 32px; border-radius: 4px; font-weight: 700; font-size: 0.9rem; letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+    .btn-primary:hover { background: #ffe44d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,209,0,0.3); }
+    .btn-secondary { border: 1px solid rgba(255,255,255,0.2); color: var(--light); padding: 15px 32px; border-radius: 4px; font-weight: 600; font-size: 0.9rem; letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+    .btn-secondary:hover { border-color: var(--yellow); color: var(--yellow); }
+    .hero-stats { margin-top: 70px; display: flex; gap: 48px; flex-wrap: wrap; animation: fadeUp 0.7s ease 0.4s both; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--yellow); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+    .ticker { background: var(--yellow); color: var(--dark); padding: 12px 0; overflow: hidden; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px; }
+    .ticker-track { display: flex; animation: ticker 20s linear infinite; white-space: nowrap; }
+    .ticker-track span { padding: 0 40px; }
+    .ticker-sep { color: rgba(0,0,0,0.3); }
+
+    #services { padding: 100px 5vw; background: var(--charcoal); }
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--yellow); margin-bottom: 16px; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; letter-spacing: 1px; margin-bottom: 60px; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; }
+    .service-card { background: var(--mid); padding: 40px 32px; position: relative; overflow: hidden; transition: background 0.3s; cursor: default; }
+    .service-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--yellow); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
+    .service-card:hover { background: #222; }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon { font-size: 2.4rem; margin-bottom: 20px; display: block; }
+    .service-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 1px; margin-bottom: 12px; }
+    .service-desc { font-size: 0.9rem; color: #888; line-height: 1.7; }
+
+    #why { padding: 100px 5vw; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .why-visual { position: relative; }
+    .why-big-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(6rem, 14vw, 13rem); line-height: 0.85; color: transparent; -webkit-text-stroke: 1px rgba(255,209,0,0.2); user-select: none; }
+    .why-badge { position: absolute; bottom: 10px; right: 0; background: var(--yellow); color: var(--dark); padding: 20px 24px; border-radius: 6px; }
+    .why-badge-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; }
+    .why-badge-text { font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .why-list { list-style: none; margin-top: 32px; }
+    .why-item { display: flex; gap: 16px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .why-check { background: rgba(255,209,0,0.1); color: var(--yellow); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; margin-top: 2px; }
+    .why-item-title { font-weight: 700; margin-bottom: 4px; }
+    .why-item-desc { font-size: 0.88rem; color: #888; line-height: 1.6; }
+
+    #process { padding: 100px 5vw; background: var(--charcoal); }
+    .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin-top: 60px; position: relative; }
+    .process-step { padding: 40px 28px; position: relative; }
+    .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: rgba(255,209,0,0.15); line-height: 1; margin-bottom: 16px; }
+    .step-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+    .step-desc { font-size: 0.85rem; color: #777; line-height: 1.6; }
+    .step-line { position: absolute; top: 60px; right: 0; width: 1px; height: 40px; background: rgba(255,209,0,0.2); }
+
+    #contact { padding: 100px 5vw; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-info-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 32px; }
+    .contact-icon { background: rgba(255,209,0,0.1); color: var(--yellow); width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-item-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+    .contact-item-val { font-weight: 600; font-size: 1rem; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .form-input, .form-textarea { background: var(--mid); border: 1px solid rgba(255,255,255,0.08); color: var(--light); padding: 14px 16px; border-radius: 4px; font-family: 'Barlow', sans-serif; font-size: 0.95rem; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(255,209,0,0.08); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit { background: var(--yellow); color: var(--dark); border: none; padding: 16px 32px; border-radius: 4px; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; width: 100%; margin-top: 8px; }
+    .form-submit:hover { background: #ffe44d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,209,0,0.25); }
+
+    /* Success toast */
+    .toast { position: fixed; bottom: 32px; right: 32px; background: #1a1a1a; border: 1px solid rgba(255,209,0,0.3); color: var(--light); padding: 16px 24px; border-radius: 8px; font-size: 0.9rem; z-index: 999; display: flex; align-items: center; gap: 12px; transform: translateY(80px); opacity: 0; transition: all 0.4s cubic-bezier(.175,.885,.32,1.275); pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { font-size: 1.4rem; }
+
+    footer { background: #050505; padding: 40px 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--yellow); letter-spacing: 2px; }
+    .footer-logo span { color: #555; }
+    .footer-copy { font-size: 0.8rem; color: #444; }
+    .social-links { display: flex; gap: 12px; }
+    .social-btn { width: 38px; height: 38px; border-radius: 8px; background: var(--mid); color: var(--light); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: background 0.2s, color 0.2s, transform 0.15s; }
+    .social-btn:hover { background: var(--yellow); color: var(--dark); transform: translateY(-2px); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      #why, #contact { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .why-big-text { font-size: 6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">S <span>Electrical</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚡ Licensed & Certified Electrical Contractor</div>
+    <h1 class="hero-title">POWER<br><span class="yellow">YOUR</span><br>WORLD</h1>
+    <p class="hero-sub">S Electrical delivers safe, reliable, and high-quality electrical solutions for homes and businesses. From wiring to full commercial fit-outs — we get it done right.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get a Free Quote</a>
+      <a href="#services" class="btn-secondary">Our Services</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">500+</div><div class="stat-label">Projects Completed</div></div>
+      <div><div class="stat-num">10+</div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">Safety Record</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Residential Wiring <span class="ticker-sep">✦</span></span>
+    <span>Commercial Installations <span class="ticker-sep">✦</span></span>
+    <span>Industrial Electrical <span class="ticker-sep">✦</span></span>
+    <span>Panel Upgrades <span class="ticker-sep">✦</span></span>
+    <span>Safety Inspections <span class="ticker-sep">✦</span></span>
+    <span>24/7 Emergency Service <span class="ticker-sep">✦</span></span>
+    <span>Residential Wiring <span class="ticker-sep">✦</span></span>
+    <span>Commercial Installations <span class="ticker-sep">✦</span></span>
+    <span>Industrial Electrical <span class="ticker-sep">✦</span></span>
+    <span>Panel Upgrades <span class="ticker-sep">✦</span></span>
+    <span>Safety Inspections <span class="ticker-sep">✦</span></span>
+    <span>24/7 Emergency Service <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <h2 class="section-title">OUR SERVICES</h2>
+  <div class="services-grid">
+    <div class="service-card"><span class="service-icon">🏠</span><div class="service-name">Residential Wiring</div><p class="service-desc">Complete home wiring, rewiring, and upgrades. New construction or renovation — we ensure every outlet, switch, and circuit is installed safely to code.</p></div>
+    <div class="service-card"><span class="service-icon">🏢</span><div class="service-name">Commercial Electrical</div><p class="service-desc">Full-service electrical for offices, shops, and commercial spaces. Lighting, power distribution, emergency systems, and more.</p></div>
+    <div class="service-card"><span class="service-icon">🏭</span><div class="service-name">Industrial Installations</div><p class="service-desc">Heavy-duty electrical for factories and industrial facilities. Motor wiring, control panels, three-phase systems, and high-load installations.</p></div>
+    <div class="service-card"><span class="service-icon">⚡</span><div class="service-name">Panel Upgrades</div><p class="service-desc">Outdated panel? We upgrade your electrical panel to handle modern demands safely — preventing hazards and improving reliability.</p></div>
+    <div class="service-card"><span class="service-icon">🔍</span><div class="service-name">Safety Inspections</div><p class="service-desc">Thorough electrical inspections to identify risks before they become problems. Ideal for new homebuyers, landlords, and businesses.</p></div>
+    <div class="service-card"><span class="service-icon">🚨</span><div class="service-name">Emergency Repairs</div><p class="service-desc">Electrical emergencies don't wait for business hours. Our team is available for urgent repairs when you need us most.</p></div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="why-visual">
+    <div class="why-big-text">WHY<br>US</div>
+    <div class="why-badge"><div class="why-badge-num">⭐ 5.0</div><div class="why-badge-text">Customer Rating</div></div>
+  </div>
+  <div>
+    <div class="section-label">Our Promise</div>
+    <h2 class="section-title">BUILT ON TRUST &amp; QUALITY</h2>
+    <ul class="why-list">
+      <li class="why-item"><div class="why-check">✓</div><div><div class="why-item-title">Licensed & Insured</div><div class="why-item-desc">Fully certified electricians. Every job meets local safety codes and regulations — no shortcuts, ever.</div></div></li>
+      <li class="why-item"><div class="why-check">✓</div><div><div class="why-item-title">Transparent Pricing</div><div class="why-item-desc">No hidden fees or surprises. You get a clear, upfront quote before any work begins.</div></div></li>
+      <li class="why-item"><div class="why-check">✓</div><div><div class="why-item-title">On-Time, Every Time</div><div class="why-item-desc">We respect your schedule. Our team shows up when promised and finishes on deadline.</div></div></li>
+      <li class="why-item"><div class="why-check">✓</div><div><div class="why-item-title">Workmanship Guarantee</div><div class="why-item-desc">We stand behind every job. If something isn't right, we'll fix it — at no extra cost.</div></div></li>
+    </ul>
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">OUR PROCESS</h2>
+  <div class="process-steps">
+    <div class="process-step"><div class="step-num">01</div><div class="step-title">Contact Us</div><div class="step-desc">Reach out by phone, WhatsApp, or the form below. Tell us about your project.</div><div class="step-line"></div></div>
+    <div class="process-step"><div class="step-num">02</div><div class="step-title">Free Site Visit</div><div class="step-desc">We visit the site, assess the work needed, and provide a detailed, no-obligation quote.</div><div class="step-line"></div></div>
+    <div class="process-step"><div class="step-num">03</div><div class="step-title">Work Begins</div><div class="step-desc">Our certified team gets to work — safely, cleanly, and on schedule.</div><div class="step-line"></div></div>
+    <div class="process-step"><div class="step-num">04</div><div class="step-title">Final Inspection</div><div class="step-desc">We test everything, clean up, and only sign off when you're fully satisfied.</div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div>
+    <div class="section-label">Reach Out</div>
+    <h2 class="section-title">GET IN<br>TOUCH</h2>
+    <p style="color:#888; font-size:0.95rem; line-height:1.7; margin-bottom:40px;">Ready to start a project or have a question? Contact us today — we'll get back to you within 24 hours.</p>
+    <div class="contact-info-item">
+      <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+      <div><div class="contact-item-label">Phone / WhatsApp</div><div class="contact-item-val">+91 95639 02229</div></div>
+    </div>
+    <div class="contact-info-item">
+      <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+      <div><div class="contact-item-label">Email</div><div class="contact-item-val">info@selectrical.com</div></div>
+    </div>
+    <div class="contact-info-item">
+      <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+      <div><div class="contact-item-label">Location</div><div class="contact-item-val">Siliguri, West Bengal</div></div>
+    </div>
+  </div>
+  <div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input id="f-name" class="form-input" type="text" placeholder="Rahul Sharma" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input id="f-phone" class="form-input" type="tel" placeholder="+91 98765 43210" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input id="f-email" class="form-input" type="email" placeholder="you@email.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Needed</label>
+        <input id="f-service" class="form-input" type="text" placeholder="e.g. Residential Wiring, Panel Upgrade..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea id="f-message" class="form-textarea" placeholder="Tell us about your project..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitEnquiry()">Send Enquiry ⚡</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">S <span>Electrical</span></div>
+  <div class="footer-copy">© 2025 S Electrical. All rights reserved.</div>
+  <div class="social-links">
+    <a class="social-btn" href="https://instagram.com/S_Electrical" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    <a class="social-btn" href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+    <a class="social-btn" href="https://wa.me/919563902229" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span>Enquiry submitted! We'll contact you soon.</span>
+</div>
+
+<script>
+  function submitEnquiry() {
+    const name    = document.getElementById('f-name').value.trim();
+    const phone   = document.getElementById('f-phone').value.trim();
+    const email   = document.getElementById('f-email').value.trim();
+    const service = document.getElementById('f-service').value.trim();
+    const message = document.getElementById('f-message').value.trim();
+
+    if (!name || !phone) {
+      alert('Please enter your name and phone number.');
+      return;
+    }
+
+    const enquiry = {
+      id: Date.now(),
+      name, phone, email, service, message,
+      date: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+      status: 'new'
+    };
+
+    const existing = JSON.parse(localStorage.getItem('se_enquiries') || '[]');
+    existing.unshift(enquiry);
+    localStorage.setItem('se_enquiries', JSON.stringify(existing));
+
+    // Clear form
+    ['f-name','f-phone','f-email','f-service','f-message'].forEach(id => {
+      const el = document.getElementById(id);
+      el.value = '';
+    });
+
+    // Show toast
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+</script>
+</body>
+</html>
